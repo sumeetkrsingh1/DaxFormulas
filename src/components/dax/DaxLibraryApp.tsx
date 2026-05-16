@@ -38,6 +38,9 @@ export default function DaxLibraryApp({ isAdmin = false, userName }: DaxLibraryA
   const [toastMsg, setToastMsg] = useState("");
   const [toastShow, setToastShow] = useState(false);
   const [copyScriptOk, setCopyScriptOk] = useState(false);
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const [dmMobileFilterOpen, setDmMobileFilterOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const mainRef = useRef<HTMLElement>(null);
   const dmSearchRef = useRef<HTMLInputElement>(null);
 
@@ -84,7 +87,9 @@ export default function DaxLibraryApp({ isAdmin = false, userName }: DaxLibraryA
   const setCat = (c: string) => {
     setActiveCat(c);
     setActiveSub("all");
+    setSidebarOpen(false);
     mainRef.current?.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   };
 
   const toggle = (id: number) => {
@@ -301,25 +306,27 @@ export default function DaxLibraryApp({ isAdmin = false, userName }: DaxLibraryA
             />
           </div>
         </div>
-        <div className="dm-filter-bar">
-          <span className="dm-filter-lbl">Filter by dept:</span>
-          <button
-            type="button"
-            className={"dm-fpill" + (dmFilter === "all" ? " active" : "")}
-            onClick={() => setDmFilter("all")}
-          >
-            All Tables
-          </button>
-          {Object.keys(allCats).map((c) => (
+        <div className="dm-filter-bar" onClick={() => setDmMobileFilterOpen(!dmMobileFilterOpen)}>
+          <span className="dm-filter-lbl">Filter by dept: {dmMobileFilterOpen ? "▼" : "▶"}</span>
+          <div className={"dm-filter-opts" + (dmMobileFilterOpen ? " open" : "")}>
             <button
-              key={c}
               type="button"
-              className={"dm-fpill" + (dmFilter === c ? " active" : "")}
-              onClick={() => setDmFilter(c)}
+              className={"dm-fpill" + (dmFilter === "all" ? " active" : "")}
+              onClick={(e) => { e.stopPropagation(); setDmFilter("all"); }}
             >
-              {catMap[c]}
+              All Tables
             </button>
-          ))}
+            {Object.keys(allCats).map((c) => (
+              <button
+                key={c}
+                type="button"
+                className={"dm-fpill" + (dmFilter === c ? " active" : "")}
+                onClick={(e) => { e.stopPropagation(); setDmFilter(c); }}
+              >
+                {catMap[c]}
+              </button>
+            ))}
+          </div>
         </div>
         {filteredTables.length === 0 ? (
           <div className="dm-empty">No tables match your search.</div>
@@ -506,25 +513,27 @@ export default function DaxLibraryApp({ isAdmin = false, userName }: DaxLibraryA
         </div>
 
         {subs.length > 1 && (
-          <div className="filter-bar">
-            <span className="filter-lbl">Filter:</span>
-            <button
-              type="button"
-              className={"fpill" + (activeSub === "all" ? " active" : "")}
-              onClick={() => setActiveSub("all")}
-            >
-              All
-            </button>
-            {subs.map((s) => (
+          <div className="filter-bar" onClick={() => setMobileFilterOpen(!mobileFilterOpen)}>
+            <span className="filter-lbl">Filter: {mobileFilterOpen ? "▼" : "▶"}</span>
+            <div className={"filter-opts" + (mobileFilterOpen ? " open" : "")}>
               <button
-                key={s}
                 type="button"
-                className={"fpill" + (activeSub === s ? " active" : "")}
-                onClick={() => setActiveSub(s)}
+                className={"fpill" + (activeSub === "all" ? " active" : "")}
+                onClick={(e) => { e.stopPropagation(); setActiveSub("all"); }}
               >
-                {s}
+                All
               </button>
-            ))}
+              {subs.map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  className={"fpill" + (activeSub === s ? " active" : "")}
+                  onClick={(e) => { e.stopPropagation(); setActiveSub(s); }}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
           </div>
         )}
 
@@ -557,7 +566,7 @@ export default function DaxLibraryApp({ isAdmin = false, userName }: DaxLibraryA
   };
 
   const handleSearch = (q: string) => {
-    setSearchQ(q.trim());
+    setSearchQ(q);
     if (q.trim()) setActiveCat("all");
   };
 
@@ -571,6 +580,9 @@ export default function DaxLibraryApp({ isAdmin = false, userName }: DaxLibraryA
     <>
       <header className="hdr">
         <div className="hdr-l">
+          <button type="button" className="mobile-menu-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
+            ☰
+          </button>
           <div className="logo-img">
             <Image src="/logo.jpg" alt="Datacense" width={33} height={33} unoptimized />
           </div>
@@ -625,7 +637,7 @@ export default function DaxLibraryApp({ isAdmin = false, userName }: DaxLibraryA
       </header>
 
       <div className="layout">
-        <aside className="sidebar" id="sidebar">
+        <aside className={"sidebar" + (sidebarOpen ? " open" : "")} id="sidebar">
           {GROUPS.map((g, gi) => (
             <div key={g.label}>
               {gi > 0 && <div className="sb-div" />}

@@ -1,4 +1,12 @@
-import type { Json, SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
+
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[];
 
 export const SIGNUP_ENABLED_KEY = "signup_enabled" as const;
 
