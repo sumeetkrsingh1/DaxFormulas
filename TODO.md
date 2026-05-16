@@ -1,0 +1,12 @@
+- [ ] Implement admin login based on `public.admin_users` (email/password)
+  - [ ] Add `src/app/admin/login/page.tsx`
+  - [ ] Add `src/app/admin/login/route.ts` to verify credentials using Postgres `crypt()` and set `admin_session` cookie
+- [ ] Protect `/admin` route using `admin_session` cookie
+  - [ ] Update middleware matcher/logic to allow `/admin` + `/admin/login` without Supabase auth
+  - [ ] Update `src/app/admin/page.tsx` to redirect to `/admin/login` if not verified
+- [ ] Make admin panel load all profiles (bypass RLS for admin)
+  - [ ] Add server-side fetch using Supabase **service role** key
+  - [ ] Update `AdminPanel` to call a server endpoint or server component
+- [ ] Add Supabase SQL for admin table if not already present
+- [ ] Build + lint
+

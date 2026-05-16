@@ -1,0 +1,208 @@
+/* Auth pages — same design tokens as DAX library */
+body.auth-page {
+  overflow: auto;
+  min-height: 100vh;
+}
+
+.auth-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+  background: var(--bg);
+  position: relative;
+}
+
+.auth-wrap::before {
+  content: "DAX";
+  position: fixed;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-jetbrains), "JetBrains Mono", monospace;
+  font-size: clamp(4rem, 12vw, 8rem);
+  font-weight: 800;
+  color: var(--gold-dim);
+  opacity: 0.12;
+  letter-spacing: -4px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.75rem 1.85rem 1.5rem;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 24px 48px #00000044;
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.35rem;
+}
+
+.auth-brand-txt {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.auth-brand-txt span {
+  color: var(--gold);
+}
+
+.auth-brand-sub {
+  font-size: 0.58rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.auth-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+.auth-title span {
+  color: var(--gold);
+}
+
+.auth-sub {
+  font-size: 0.74rem;
+  color: var(--muted);
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
+}
+
+.auth-field {
+  margin-bottom: 0.85rem;
+}
+
+.auth-label {
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.auth-input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 9px 12px;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.auth-input:focus {
+  border-color: var(--gold);
+}
+
+.auth-input::placeholder {
+  color: var(--muted);
+}
+
+.auth-btn {
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 10px 16px;
+  border-radius: 7px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  background: var(--gold);
+  color: var(--bg);
+  font-family: inherit;
+  transition: opacity 0.15s;
+}
+
+.auth-btn:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.auth-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.auth-btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+.auth-btn-outline:hover:not(:disabled) {
+  border-color: var(--gold-dim);
+  color: var(--text);
+  opacity: 1;
+}
+
+.auth-error {
+  background: var(--red-bg);
+  border: 1px solid var(--red-border);
+  color: var(--red);
+  font-size: 0.72rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 7px;
+  margin-bottom: 0.85rem;
+  line-height: 1.45;
+}
+
+.auth-info {
+  background: var(--gold-glow);
+  border: 1px solid var(--gold-dim);
+  color: var(--gold);
+  font-size: 0.72rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 7px;
+  margin-bottom: 0.85rem;
+  line-height: 1.45;
+}
+
+.auth-footer {
+  margin-top: 1.1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.auth-footer a {
+  color: var(--gold);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+.auth-theme {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+
+body.light-mode .auth-wrap::before {
+  opacity: 0.06;
+}
